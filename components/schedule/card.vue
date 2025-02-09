@@ -1,207 +1,183 @@
 <template>
   <div class="card" :class="{ disabled }">
-    <span class="card-task" :class="{ disabled }">{{ data[fields['subtitle']] }}</span>
-    <span class="card-title" :class="{ disabled }">{{ data[fields['title']] }}</span>
-    <div class="card-difficult-wrapper" :class="{ 'card-difficult-wrapper-fire': data[fields['imageCount']] >= 3 }">
-      <nuxt-img v-for="(number, index) in data[fields['imageCount']]" class="card-difficult" :src="image" />
+    <span class="title">{{ parsedData.title }}</span>
+    <span class="subtitle">{{ parsedData.subtitle }}</span>
+    <div class="difficult-outer" v-for="(_, index) in parsedData.imageCount">
+      <img class="difficult" :src="image" />
+      <img class="difficult-hard" v-if="index === 2" :src="imageHard">
     </div>
-    <div class="card-estimate-wrapper">
-      <span class="card-score-text" :class="{ disabled }">{{ Array.isArray(fields['text']) ? data[fields['text'][0]] :
-        data[fields['text']] }}</span>
-      <span class="card-score-value" :class="{ disabled }" v-if="Array.isArray(fields['text'])">{{
-        data[fields['text'][1]] }}</span>
-      <span class="card-estimate">/{{ data[fields['estimate']] }}</span>
+    <div class="text-wrapper">
+      <span class="text" v-for="text in parsedData.text">{{ text }}</span>
     </div>
-    <span v-if="disabled" class="card-blocked">
-      {{ disabledText }}
-    </span>
-    <template v-else>
-      <div class="card-datetime-wrapper" :class="{ alone: !Array.isArray(fields['footer']) }">
-        <span class="card-date">{{ Array.isArray(fields['footer']) ? data[fields['footer'][0]] : data[fields['footer']]
-          }}</span>
-        <span class="card-time" v-if="Array.isArray(fields['footer'])">{{ data[fields['footer'][1]] }}</span>
-      </div>
-      <span class="card-weekday">{{ data[fields['subfooter']] }}</span>
-    </template>
+    <div class="footer-wrapper">
+      <span class="subfooter-disabled" v-if="disabled">{{ disabledText }}</span>
+      <template v-else>
+        <span class="subfooter" v-for="text in parsedData.subfooter">{{ text }}</span>
+        <span class="footer">{{ parsedData.footer }}</span>
+      </template>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts">
-const { data, disabled, disabledText, fields, color, textColor, image } = defineProps(['data', 'disabled', 'disabledText', 'fields', 'color', 'textColor', 'image']);
+<script setup lang="js">
+const { data, fields, image, imageHard, disabled, options, disabledText } = defineProps(['data', 'fields', 'image', 'imageHard', 'disabled', 'options', 'disabledText']);
+const { color, colorDisabled = '#5B5B5B', textColor = '#FFFFFF' } = options;
+
+const parsedData = Object.entries(fields).reduce((result, [target, source]) => {
+  if (Array.isArray(source)) {
+    result[target] = source.map(it => data[it])
+    return result;
+  }
+
+  result[target] = data[source];
+  return result;
+}, {});
 </script>
 
 <style scoped lang="scss">
 .card {
-  overflow: hidden;
-  position: relative;
-
   display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  width: 262px;
-  height: 304px;
-
-  padding-top: 20px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  height: max-content;
 
   background-image: url("/background-white.jpg");
+  padding: 6px 0 0 0;
+}
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: -10px;
+.title {
+  font-family: 'Rabbits Elf', sans-serif;
+  text-align: center;
+  font-size: 32px;
+  width: 100%;
+}
 
-    height: 110px;
-    width: calc(100% + 20px);
+.subtitle {
+  font-family: 'Cinematografica Heavy', sans-serif;
+  text-align: center;
+  font-size: 40px;
+  width: 100%;
 
-    mix-blend-mode: multiply;
-    background-color: v-bind(color);
-    opacity: 90%;
+  margin: 8px 0 8px 0;
+}
 
-    transform: rotateZ(-1.5deg);
-  }
+.difficult-outer {
+  position: relative;
+}
 
-  &.disabled {
-    &::after {
-      background-color: var(--color-gray);
-    }
-  }
+.difficult-hard {
+  z-index: -1;
+  position: absolute;
+  left: 95%;
+  bottom: 20%;
+  transform: translate(-50%, -50%);
+}
 
-  &-task {
-    font-family: 'Rabbits Elf', sans-serif;
-    line-height: 25px;
-    font-size: 32px;
+.text-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 45px;
+  margin-top: -5px;
+}
 
-    margin-bottom: 20px;
-  }
-
-  &-title {
-    font-family: 'Cinematografica Heavy', sans-serif;
-    line-height: 25px;
-    font-size: 40px;
-
-    margin-bottom: 12px;
-  }
-
-  &-difficult-wrapper {
-    position: relative;
-
-    &-fire {
-      &::after {
-        z-index: -1;
-
-        content: '';
-        position: absolute;
-        right: -10px;
-        top: -10px;
-
-        width: 34px;
-        height: 34px;
-
-        background-image: url('/fire.png');
-      }
-    }
-  }
-
-  &-difficult {
-    position: relative;
-
-    margin-left: 3px;
-
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-
-  &-score-text {
-    position: absolute;
-
-    top: 64%;
-    left: 40%;
-
+.text {
+  &:nth-of-type(1) {
+    align-self: flex-end;
     font-size: 28px;
     font-family: 'Cinematografica Bold', sans-serif;
-
-    align-self: flex-end;
+    margin-left: auto;
+    margin-right: 4px;
   }
 
-  &-score-value {
-    position: absolute;
-
-    top: 50%;
-    left: 50%;
-
+  &:nth-of-type(2) {
+    align-self: flex-end;
     font-size: 34px;
     font-family: 'Cinematografica Light', sans-serif;
+    margin-right: 10px;
   }
 
-  &-estimate-wrapper {
-    position: relative;
-
-    width: 100%;
-    height: 30px;
-  }
-
-  &-estimate {
-    position: absolute;
-
-    top: 15px;
-    left: 163px;
-
+  &:nth-of-type(3) {
     font-family: 'Rabbits Elf', sans-serif;
+    line-height: 65px;
     font-size: 64px;
-    line-height: 25px;
     color: var(--color-red);
-  }
-
-  &-date {
-    font-family: 'Rabbits Elf', sans-serif;
-    font-size: 40px;
-    color: v-bind(textColor);
-    line-height: 29px;
-
-    margin-right: 8px;
-  }
-
-  &-datetime-wrapper {
-    z-index: 1;
-    display: flex;
-
-    margin-top: 50px;
-
-    &.alone {
-      margin-top: 60px;
-    }
-  }
-
-  &-time {
-    font-family: 'Rabbits Elf', sans-serif;
-    font-size: 32px;
-    color: v-bind(textColor);
-    line-height: 29px;
-  }
-
-  &-weekday {
-    z-index: 1;
-    font-family: 'Rabbits Elf', sans-serif;
-    font-size: 40px;
-    color: v-bind(textColor);
-    line-height: 30px;
-  }
-
-  &-blocked {
-    z-index: 1;
-    font-family: 'Cinematografica Thin', sans-serif;
-    letter-spacing: 5px;
-    font-size: 72px;
-    color: v-bind(textColor);
-
-    margin-top: 55px;
+    width: 110px;
+    text-align: center;
   }
 }
 
-span.disabled {
-  color: var(--color-gray);
+.footer-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  padding-top: 15px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  clip-path: polygon(0% 6%, 100% 0%, 100% 100%, 0% 100%);
+  background-color: v-bind(color);
+  mix-blend-mode: multiply;
+  opacity: 90%;
+}
+
+.subfooter {
+  color: v-bind(textColor);
+  font-family: 'Rabbits Elf', sans-serif;
+  line-height: 55px;
+  font-size: 40px;
+  height: 30%;
+}
+
+.footer {
+  text-align: center;
+  color: v-bind(textColor);
+  font-family: 'Rabbits Elf', sans-serif;
+  line-height: 10px;
+  font-size: 40px;
+  width: 100%;
+}
+
+.card.disabled {
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    opacity: 10%;
+    background-color: v-bind(colorDisabled);
+  }
+
+  .title,
+  .subtitle,
+  .text {
+    color: v-bind(colorDisabled);
+  }
+
+  .text:last-of-type {
+    color: v-bind(color);
+  }
+
+  .footer-wrapper {
+    background-color: v-bind(colorDisabled);
+  }
+
+  .subfooter-disabled {
+    color: v-bind(textColor);
+    font-family: 'Cinematografica Thin', sans-serif;
+    letter-spacing: 5px;
+    font-size: 72px;
+    padding-top: 15px;
+  }
 }
 </style>

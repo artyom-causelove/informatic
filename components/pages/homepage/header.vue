@@ -14,8 +14,8 @@
       <span class="schedule-text">Расписание:</span>
     </div>
     <div class="wrapper-schedule">
-      <template v-for="(work, index) in parsedWorks">
-        <schedule-carda v-if="work" :data="work" textColor="#FFFFFF" image="/pepper.png" imageHard="/fire.png"
+      <template v-for="(work, index) in parsedWorks" :key="index">
+        <schedule-card v-if="work" :data="work" textColor="#FFFFFF" image="/pepper.png" imageHard="/fire.png"
           :fields="workFieldLinks" :disabled="work.tariff !== user.tariff" :options="{ color: '#EF3A5F' }"
           disabled-text="SENIOR ONLY!" class="card card-work" :class="{ 'card-today': index === 3 }" />
         <span v-else class="card card-empty" :class="{ 'card-today': index === 3 }"></span>
@@ -306,6 +306,8 @@ const workFieldLinks = {
       }
 
       &-work {
+        backface-visibility: hidden;
+
         cursor: pointer;
         transform: rotateZ(-1.36deg);
         width: 262px;

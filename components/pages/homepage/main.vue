@@ -2,7 +2,7 @@
   <div class="main">
     <div class="test-wrapper">
       <span class="test-text">Пробники:</span>
-      <schedule-carda v-for="test in parsedTests" class="test-card" :data="test" color="#33ECDC" textColor="#000000"
+      <schedule-card v-for="test in parsedTests" class="test-card" :data="test" color="#33ECDC" textColor="#000000"
         image="/skull.png" :options="{ color: '#EF3A5F' }" :fields="testFieldLinks" />
     </div>
   </div>
