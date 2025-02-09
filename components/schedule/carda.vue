@@ -3,7 +3,7 @@
     <span class="title">{{ parsedData.title }}</span>
     <span class="subtitle">{{ parsedData.subtitle }}</span>
     <div class="difficult-outer" v-for="(_, index) in parsedData.imageCount">
-      <img class="difficult" :src="image"/>
+      <img class="difficult" :src="image" />
       <img class="difficult-hard" v-if="index === 2" :src="imageHard">
     </div>
     <div class="text-wrapper">
@@ -20,18 +20,18 @@
 </template>
 
 <script setup lang="js">
-  const { data, fields, image, imageHard, disabled, options, disabledText } = defineProps(['data', 'fields', 'image', 'imageHard', 'disabled', 'options', 'disabledText']);
-  const { color, colorDisabled = '#5B5B5B', textColor = '#FFFFFF' } = options;
+const { data, fields, image, imageHard, disabled, options, disabledText } = defineProps(['data', 'fields', 'image', 'imageHard', 'disabled', 'options', 'disabledText']);
+const { color, colorDisabled = '#5B5B5B', textColor = '#FFFFFF' } = options;
 
-  const parsedData = Object.entries(fields).reduce((result, [target, source]) => {
-    if (Array.isArray(source)) {
-      result[target] = source.map(it => data[it])
-      return result;
-    }
-
-    result[target] = data[source];
+const parsedData = Object.entries(fields).reduce((result, [target, source]) => {
+  if (Array.isArray(source)) {
+    result[target] = source.map(it => data[it])
     return result;
-  }, {});
+  }
+
+  result[target] = data[source];
+  return result;
+}, {});
 </script>
 
 <style scoped lang="scss">
@@ -104,7 +104,7 @@
     font-family: 'Rabbits Elf', sans-serif;
     line-height: 65px;
     font-size: 64px;
-    color: #EF3A5F;
+    color: var(--color-red);
     width: 110px;
     text-align: center;
   }
@@ -160,7 +160,9 @@
     background-color: v-bind(colorDisabled);
   }
 
-  .title, .subtitle, .text {
+  .title,
+  .subtitle,
+  .text {
     color: v-bind(colorDisabled);
   }
 

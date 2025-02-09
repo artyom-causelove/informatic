@@ -1,0 +1,13 @@
+:root {
+    /* Основные цвета */
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+
+    /* Акцентные цвета */
+    --color-red: #EF3A5F;
+    --color-turquoise: #33ECDC;
+
+    /* Серые оттенки */
+    --color-gray: #5B5B5B;
+    --color-light-gray: #B9B9B9;
+}
