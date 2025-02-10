@@ -10,4 +10,8 @@
     /* Серые оттенки */
     --color-gray: #5B5B5B;
     --color-light-gray: #B9B9B9;
+
+    /* Цвета для текста */
+    --color-text-dark-red: #68182B;
+    --color-text-blue: #33ECDC;
 }

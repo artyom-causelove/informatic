@@ -31,4 +31,18 @@
 @font-face {
     font-family: 'UA Brand';
     src: url('/fonts/ua-brand/regular.otf') format('opentype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'UA Brand';
+    src: url('/fonts/ua-brand/bold.otf') format('opentype');
+    font-weight: 700;
+}
+
+
+@font-face {
+    font-family: 'UA Brand';
+    src: url('/fonts/ua-brand/black.otf') format('opentype');
+    font-weight: 900;
 }
