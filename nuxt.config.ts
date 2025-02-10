@@ -5,5 +5,8 @@ export default defineNuxtConfig({
   modules: [],
   css: [
     '@/assets/css/main.css'
-  ]
+  ],
+  typescript: {
+    typeCheck: true
+  }
 })
