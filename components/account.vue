@@ -1,6 +1,6 @@
 <template>
   <div class="account">
-    <nuxt-img class="photo" src="/avatar.jpg" />
+    <img class="photo" src="/avatar.jpg" />
     <div class="separator"></div>
     <span class="fullname">{{ name }} {{ surname }}</span>
   </div>

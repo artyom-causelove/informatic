@@ -3,7 +3,7 @@
     <span class="title">{{ parsedData.title }}</span>
     <span class="subtitle">{{ parsedData.subtitle }}</span>
     <div class="difficult-outer" v-for="(_, index) in parsedData.imageCount">
-      <img class="difficult" :src="image" />
+      <img class="difficult" :src="image"/>
       <img class="difficult-hard" v-if="index === 2" :src="imageHard">
     </div>
     <div class="text-wrapper">
@@ -66,6 +66,7 @@ const parsedData = Object.entries(fields).reduce((result, [target, source]) => {
 
 .difficult-outer {
   position: relative;
+  margin: 0 2px;
 }
 
 .difficult-hard {
@@ -116,11 +117,11 @@ const parsedData = Object.entries(fields).reduce((result, [target, source]) => {
   left: 0;
   width: 100%;
   height: 100px;
-  padding-top: 15px;
 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-content: center;
 
   clip-path: polygon(0% 6%, 100% 0%, 100% 100%, 0% 100%);
   background-color: v-bind(color);
@@ -131,16 +132,21 @@ const parsedData = Object.entries(fields).reduce((result, [target, source]) => {
 .subfooter {
   color: v-bind(textColor);
   font-family: 'Rabbits Elf', sans-serif;
-  line-height: 55px;
+  line-height: 40px;
   font-size: 40px;
   height: 30%;
+
+  &:nth-of-type(2) {
+    font-size: 32px;
+    margin: 0 0 0 5px;
+  }
 }
 
 .footer {
   text-align: center;
   color: v-bind(textColor);
   font-family: 'Rabbits Elf', sans-serif;
-  line-height: 10px;
+  line-height: 40px;
   font-size: 40px;
   width: 100%;
 }

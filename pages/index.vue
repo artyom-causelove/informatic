@@ -1,13 +1,12 @@
 <template>
-
-  <Teleport to="#header">
-    <pages-homepage-header :user="user" :works="works" />
-  </Teleport>
-
-  <Teleport to="#main">
-    <pages-homepage-main :tests="tests" />
-  </Teleport>
-
+  <NuxtLayout name="default">
+    <template #header>
+      <pages-homepage-header :user="user" :works="works"/>
+    </template>
+    <template #main>
+      <pages-homepage-main :tests="tests"/>
+    </template>
+  </NuxtLayout>
 </template>
 
 <script setup lang="js">
@@ -80,6 +79,16 @@ const tests = [{
   answer: {
     score: 12,
     estimate: 80
+  },
+}, {
+  task: 'Майский',
+  title: 'Пробник 3',
+  maxScore: 31,
+  difficult: 2,
+  date: '01.05',
+  answer: {
+    score: 1,
+    estimate: 8
   },
 }];
 </script>

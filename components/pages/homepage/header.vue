@@ -1,16 +1,16 @@
 <template>
   <div class="header">
-    <nuxt-img class="circle-decoration" src="/decoration-circles.png" width="750" height="600" />
-    <nuxt-img class="circle-decoration" src="/decoration-circles.png" width="750" height="600" />
+    <img class="circle-decoration" src="/decoration-circles.png"/>
+    <img class="circle-decoration" src="/decoration-circles.png"/>
     <div class="wrapper-top">
       <div class="wrapper-company-title">
-        <nuxt-img class="circle-decoration" src="/decoration-circles.png" />
-        <nuxt-img class="company-title" src="/company-title.png" />
+        <img class="circle-decoration" src="/decoration-circles.png" />
+        <img class="company-title" src="/company-title.png" />
       </div>
       <account class="account" :name="user.name" :surname="user.surname" />
     </div>
     <div class="wrapper-text">
-      <nuxt-img class="circle-decoration" src="/decoration-circles.png" />
+      <img class="circle-decoration" src="/decoration-circles.png" />
       <span class="schedule-text">Расписание:</span>
     </div>
     <div class="wrapper-schedule">
@@ -28,7 +28,6 @@
       <span class="tariff tariff-free" :class="{ active: activeTariff === 2 }" @click="activeTariff = 2">Бесплатный
         курс</span>
     </div>
-    <nuxt-img class="paper-down" src="/paper-down.png" />
   </div>
 </template>
 
@@ -41,7 +40,7 @@ const parsedWorks = works.map(it => {
   if (!it) return it;
   return {
     ...it,
-    datetimeString: `${it.date} . . .`,
+    datetimeString: `${it.date} . . . `,
     estimate: `/${it.answer?.estimate || '?'}`,
     textTitle: 'ДЗ:',
     textScore: `${Number.isInteger(it.answer?.score) ? it.answer?.score : '-'}/${it.maxScore}`
@@ -112,13 +111,13 @@ const workFieldLinks = {
         width: 514px;
         height: 154px;
 
-        @media screen and (max-width: 460px) {
+        @media screen and (max-width: 530px) {
           width: 428px;
           height: 128px;
         }
       }
 
-      .circle-decoration {
+      & > .circle-decoration {
         z-index: 0;
         position: absolute;
         display: none;
@@ -196,6 +195,7 @@ const workFieldLinks = {
 
     .circle-decoration {
       position: absolute;
+      display: block;
 
       top: 20%;
       left: 50%;
@@ -255,7 +255,7 @@ const workFieldLinks = {
       order: 4;
     }
 
-    &>div:nth-of-type(2n) {
+    & > div:nth-of-type(2n) {
       transform: rotateZ(2.72deg);
     }
 
@@ -312,7 +312,7 @@ const workFieldLinks = {
         transform: rotateZ(-1.36deg);
         width: 262px;
         height: 304px;
-        transition: all 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out;
 
         &:hover {
           transform: rotateZ(2deg) scale(1.1);
@@ -403,7 +403,7 @@ const workFieldLinks = {
 
   // </wrapper-tariff>
 
-  .circle-decoration {
+  & > .circle-decoration {
     position: absolute;
     display: none;
 
@@ -419,6 +419,7 @@ const workFieldLinks = {
     }
 
     &:nth-of-type(2) {
+      mix-blend-mode: overlay;
       right: -785px;
       top: 84%;
     }
@@ -432,13 +433,5 @@ const workFieldLinks = {
   width: 750px;
   height: 600px;
 }
-
 // </global>
-
-
-.paper-down {
-  z-index: 1;
-  width: 100%;
-  order: 5;
-}
 </style>
