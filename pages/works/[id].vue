@@ -47,8 +47,11 @@
           <work-folder name="pdf" description="Каракули от 20.03.pdf" />
         </div>
 
-        <button class="download-button">
-          <img class="download-icon" src="/box-drop.png">
+        <ud-button
+          variant="paper"
+          size="md"
+          icon="/box-drop.png"
+        >
           <div class="download-title-wrapper">
             <ud-text
               font-family="UA Brand"
@@ -65,7 +68,7 @@
               одним файлом
             </ud-text>
           </div>
-        </button>
+        </ud-button>
 
       </div>
     </template>
@@ -119,23 +122,10 @@
   gap: 30px;
 }
 
-.download-button {
-  width: 235px;
-  height: 65px;
-  border-radius: 60px;
-  background-image: url('/paper-background.png');
-  outline: none;
-  border: none;
-  background-size: cover;
+.download-title-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.download-icon {
-  width: 33px;
-  height: 48px;
+  flex-direction: column;
+  text-align: left;
 }
 
 .title-wrapper {
