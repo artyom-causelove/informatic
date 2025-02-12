@@ -8,6 +8,7 @@ export type ColorVariables =
   | '--color-very-light-gray'
   | '--color-text-dark-red'
   | '--color-text-blue'
+  | '--color-text-light-green'
 
 export type Colors = {
   [K in ColorVariables]: string

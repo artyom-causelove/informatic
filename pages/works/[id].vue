@@ -8,36 +8,19 @@
       <img class="micro-heart" src="/micro-heart.png">
 
       <div style="margin-top: 26px; width: 100%; display: flex; justify-content: center;">
-        <ud-text
-          font-family="Rabbits Elf"
-          :font-weight="400"
-          :size="64"
-          class="title-wrapper"
-          color="white"
-        >
+        <ud-text font-family="Rabbits Elf" :font-weight="400" :size="64" class="title-wrapper" color="white">
           11 Задача
         </ud-text>
       </div>
 
       <div class="stream-mock" style="margin-top: 38px;">
-        <ud-text
-          font-family="Cinematografica"
-          :font-weight="100"
-          :size="600"
-          color="white"
-        >
+        <ud-text font-family="Cinematografica" :font-weight="100" :size="600" color="white">
           Stream
         </ud-text>
       </div>
 
       <div class="files-wrapper" style="margin-top: 100px;">
-        <ud-text
-          font-family="Cinematografica"
-          :font-weight="100"
-          :size="300"
-          color="white"
-          class="files-title"
-        >
+        <ud-text font-family="Cinematografica" :font-weight="100" :size="300" color="white" class="files-title">
           Файлы:
         </ud-text>
 
@@ -47,24 +30,12 @@
           <work-folder name="pdf" description="Каракули от 20.03.pdf" />
         </div>
 
-        <ud-button
-          variant="paper"
-          size="md"
-          icon="/box-drop.png"
-        >
+        <ud-button variant="paper" size="md" icon="/box-drop.png">
           <div class="download-title-wrapper">
-            <ud-text
-              font-family="UA Brand"
-              :font-weight="700"
-              :size="16"
-              style="width: min-content;"
-            >
+            <ud-text font-family="UA Brand" :font-weight="700" :size="16" style="width: min-content;">
               Скачать
             </ud-text>
-            <ud-text
-              font-family="UA Brand"
-              :size="16"
-            >
+            <ud-text font-family="UA Brand" :size="16">
               одним файлом
             </ud-text>
           </div>
@@ -76,14 +47,46 @@
 
     <template #main>
       <div class="homework-wrapper">
+
         <div>
-          <ud-text>Домашка:</ud-text>
+          <ud-text font-family="Cinematografica" :font-weight="100" :size="300">
+            Домашка:
+          </ud-text>
         </div>
-        <div>
-          <ud-text>20.03.26</ud-text>
+
+        <div class="homework-title-wrapper">
+          <ud-text font-family="Cinematografica" :font-weight="700" :size="64">
+            20.03.26
+          </ud-text>
+          <ud-text font-family="Cinematografica" :font-weight="700" :size="64">
+            "11 задача"
+          </ud-text>
         </div>
+
+        <div class="results-wrapper">
+          <ud-text font-family="UA Brand" :font-weight="400" :size="40">
+            <ud-text font-family="UA Brand" :font-weight="700" :size="40" component="span">9</ud-text>
+            заданий
+          </ud-text>
+          <ud-text font-family="UA Brand" :font-weight="700" :size="40">
+            <ud-text font-family="UA Brand" :font-weight="700" :size="40" color="text-light-green" component="span">7</ud-text>
+            верно
+          </ud-text>
+          <ud-button variant="paper" size="md" icon="/box-drop.png">
+            <div class="download-title-wrapper">
+              <ud-text font-family="UA Brand" :font-weight="700" :size="16" style="width: min-content;">
+                Скачать
+              </ud-text>
+              <ud-text font-family="UA Brand" :size="16">
+                одним файлом
+              </ud-text>
+            </div>
+          </ud-button>
+        </div>
+
       </div>
     </template>
+
   </NuxtLayout>
 </template>
 
@@ -134,5 +137,33 @@
   flex-direction: column;
   gap: 10px;
   text-align: left;
+}
+
+.homework-wrapper {
+  color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 130px;
+}
+
+.homework-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & p {
+    letter-spacing: 10px;
+  }
+}
+
+.results-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 18px;
 }
 </style>

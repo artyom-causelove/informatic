@@ -7,6 +7,7 @@ interface Props {
   color?: ColorNames;
   fontFamily?: FontFamilies;
   fontWeight?: FontWeights[NonNullable<Props['fontFamily']>];
+  component?: 'p' | 'span';
 }
 
 const props = defineProps<Props>()
@@ -15,17 +16,18 @@ const calculateColor = computed(() => props.color ? `var(--color-${props.color})
 const calculateFont = computed(() => props.fontFamily || 'Rabbits Elf')
 const calculateSize = computed(() => (props.size || 24) + 'px')
 const calculateLineHeight = computed(() => (props.size ? props.size * 1.4 : 24 * 1.4) + 'px')
+const calculateComponent = computed(() => props.component || 'p')
 </script>
 
 <template>
-  <p>
+  <component :is="calculateComponent" class="ud-text">
     <slot />
-  </p>
+  </component>
 </template>
 
 
 <style scoped lang="scss">
-p {
+.ud-text {
   font-size: v-bind(calculateSize);
   line-height: v-bind(calculateLineHeight);
   font-family: v-bind(calculateFont);
