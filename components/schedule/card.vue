@@ -1,37 +1,50 @@
 <template>
   <div class="card" :class="{ disabled }">
-    <span class="title">{{ parsedData.title }}</span>
-    <span class="subtitle">{{ parsedData.subtitle }}</span>
-    <div class="difficult-outer" v-for="(_, index) in parsedData.imageCount">
+    <span class="title">{{ title }}</span>
+    <span class="subtitle">{{ subtitle }}</span>
+    <div class="difficult-outer" v-for="(_, index) in imageCount" :key="index">
       <img class="difficult" :src="image"/>
       <img class="difficult-hard" v-if="index === 2" :src="imageHard">
     </div>
     <div class="text-wrapper">
-      <span class="text" v-for="text in parsedData.text">{{ text }}</span>
+      <span class="text" v-for="(it, index) in text" :key="index">{{ it }}</span>
     </div>
     <div class="footer-wrapper">
       <span class="subfooter-disabled" v-if="disabled">{{ disabledText }}</span>
       <template v-else>
-        <span class="subfooter" v-for="text in parsedData.subfooter">{{ text }}</span>
-        <span class="footer">{{ parsedData.footer }}</span>
+        <span class="subfooter" v-for="(text, index) in subfooter" :key="index">{{ text }}</span>
+        <span class="footer">{{ footer }}</span>
       </template>
     </div>
   </div>
 </template>
 
-<script setup lang="js">
-const { data, fields, image, imageHard, disabled, options, disabledText } = defineProps(['data', 'fields', 'image', 'imageHard', 'disabled', 'options', 'disabledText']);
+<script setup lang="ts">
+export type DataProperty = {
+  subfooter?: string[]
+  text: string[]
+  title: string
+  subtitle: string
+  imageCount?: number
+  footer?: string
+};
+
+type OptionProperty = {
+  color: string
+  colorDisabled?: string
+  textColor?: string
+};
+
+const { data, image, imageHard, disabled, options, disabledText } = defineProps<{
+  data: DataProperty,
+  options: OptionProperty
+  image: string
+  imageHard?: string
+  disabled?: boolean
+  disabledText?: string
+}>();
 const { color, colorDisabled = '#5B5B5B', textColor = '#FFFFFF' } = options;
-
-const parsedData = Object.entries(fields).reduce((result, [target, source]) => {
-  if (Array.isArray(source)) {
-    result[target] = source.map(it => data[it])
-    return result;
-  }
-
-  result[target] = data[source];
-  return result;
-}, {});
+const { subfooter, text, title, subtitle, footer, imageCount = 3 } = data;
 </script>
 
 <style scoped lang="scss">

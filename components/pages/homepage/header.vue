@@ -14,47 +14,40 @@
       <span class="schedule-text">Расписание:</span>
     </div>
     <div class="wrapper-schedule">
-      <template v-for="(work, index) in parsedWorks" :key="index">
+      <template v-for="(work, index) in works" :key="index">
         <schedule-card v-if="work" :data="work" textColor="#FFFFFF" image="/pepper.png" imageHard="/fire.png"
-          :fields="workFieldLinks" :disabled="work.tariff !== user.tariff" :options="{ color: '#EF3A5F' }"
+          :disabled="work.tariff !== user.tariff" :options="{ color: '#EF3A5F' }"
           disabled-text="SENIOR ONLY!" class="card card-work" :class="{ 'card-today': index === 3 }" />
         <span v-else class="card card-empty" :class="{ 'card-today': index === 3 }"></span>
       </template>
     </div>
     <div class="wrapper-tariff">
-      <span class="tariff tariff-pay" :class="{ active: activeTariff === 1 }" @click="activeTariff = 1">Платный
-        курс</span>
+      <span class="tariff tariff-pay" :class="{ active: activeTariff === 1 }" @click="activeTariff = 1">Платный курс</span>
       <span class="tariff tariff-slash">/</span>
-      <span class="tariff tariff-free" :class="{ active: activeTariff === 2 }" @click="activeTariff = 2">Бесплатный
-        курс</span>
+      <span class="tariff tariff-free" :class="{ active: activeTariff === 2 }" @click="activeTariff = 2">Бесплатный курс</span>
     </div>
   </div>
 </template>
 
-<script setup lang="js">
-const { works, user } = defineProps(['works', 'user']);
+<script setup lang="ts">
+const { works, user } = defineProps<{
+  works: Array<{
+    subfooter?: string[]
+    text: string[]
+    title: string
+    subtitle: string
+    imageCount?: number
+    footer?: string
+    tariff: number
+  } | null>
+  user: {
+    name: string
+    surname: string
+    tariff: number
+  }
+}>();
 
 const activeTariff = ref(1);
-
-const parsedWorks = works.map(it => {
-  if (!it) return it;
-  return {
-    ...it,
-    datetimeString: `${it.date} . . . `,
-    estimate: `/${it.answer?.estimate || '?'}`,
-    textTitle: 'ДЗ:',
-    textScore: `${Number.isInteger(it.answer?.score) ? it.answer?.score : '-'}/${it.maxScore}`
-  };
-});
-
-const workFieldLinks = {
-  title: 'task',
-  footer: 'weekday',
-  subtitle: 'title',
-  imageCount: 'difficult',
-  text: ['textTitle', 'textScore', 'estimate'],
-  subfooter: ['datetimeString', 'time'],
-};
 </script>
 
 <style scoped lang="scss">
