@@ -33,7 +33,7 @@ const { name, size = 190, description } = props;
 
 .folder-name {
   position: absolute;
-  font-family: 'Cinematografica Heavy';
+  font-family: 'Cinematografica';
   font-size: 64px;
   text-align: center;
   color: var(--color-text-dark-red);
