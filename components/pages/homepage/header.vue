@@ -202,7 +202,8 @@ const activeTariff = ref(1);
 
     .schedule-text {
       position: relative;
-      font-family: 'Cinematografica Thin', sans-serif;
+      font-family: 'Cinematografica', sans-serif;
+      font-weight: 100;
       font-size: 300px;
       color: var(--color-white);
 
@@ -351,6 +352,7 @@ const activeTariff = ref(1);
       z-index: 1;
       position: relative;
       font-family: 'UA Brand', sans-serif;
+      font-weight: 400;
       font-size: 36px;
       color: var(--color-light-gray);
 

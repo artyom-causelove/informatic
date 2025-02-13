@@ -33,6 +33,7 @@ type OptionProperty = {
   color: string
   colorDisabled?: string
   textColor?: string
+  swapText?: boolean
 };
 
 const { data, image, imageHard, disabled, options, disabledText } = defineProps<{
@@ -43,8 +44,12 @@ const { data, image, imageHard, disabled, options, disabledText } = defineProps<
   disabled?: boolean
   disabledText?: string
 }>();
-const { color, colorDisabled = '#5B5B5B', textColor = '#FFFFFF' } = options;
+const { color, colorDisabled = '#5B5B5B', textColor = '#FFFFFF', swapText = false } = options;
 const { subfooter, text, title, subtitle, footer, imageCount = 3 } = data;
+const textOrderFirst = swapText ? 2 : 1;
+const textOrderSecond = swapText ? 1 : 2;
+const textMarginFirst = swapText ? '0 0 0 0' : '0 4px 0 auto'; 
+const textMarginSecond = swapText ? '0 4px 0 auto' : '0 0 0 0'; 
 </script>
 
 <style scoped lang="scss">
@@ -69,7 +74,8 @@ const { subfooter, text, title, subtitle, footer, imageCount = 3 } = data;
 }
 
 .subtitle {
-  font-family: 'Cinematografica Heavy', sans-serif;
+  font-family: 'Cinematografica', sans-serif;
+  font-weight: 900;
   text-align: center;
   font-size: 40px;
   width: 100%;
@@ -102,16 +108,21 @@ const { subfooter, text, title, subtitle, footer, imageCount = 3 } = data;
   &:nth-of-type(1) {
     align-self: flex-end;
     font-size: 28px;
-    font-family: 'Cinematografica Bold', sans-serif;
-    margin-left: auto;
-    margin-right: 4px;
+    font-family: 'Cinematografica', sans-serif;
+    font-weight: 700;
+    margin: v-bind(textMarginFirst);
+
+    order: v-bind(textOrderFirst);
   }
 
   &:nth-of-type(2) {
     align-self: flex-end;
     font-size: 34px;
-    font-family: 'Cinematografica Light', sans-serif;
-    margin-right: 10px;
+    font-family: 'Cinematografica', sans-serif;
+    font-weight: 300;
+    margin: v-bind(textMarginSecond);
+
+    order: v-bind(textOrderSecond);
   }
 
   &:nth-of-type(3) {
@@ -121,6 +132,8 @@ const { subfooter, text, title, subtitle, footer, imageCount = 3 } = data;
     color: var(--color-red);
     width: 110px;
     text-align: center;
+
+    order: 1000;
   }
 }
 
@@ -193,7 +206,8 @@ const { subfooter, text, title, subtitle, footer, imageCount = 3 } = data;
 
   .subfooter-disabled {
     color: v-bind(textColor);
-    font-family: 'Cinematografica Thin', sans-serif;
+    font-family: 'Cinematografica', sans-serif;
+    font-weight: 100;
     letter-spacing: 5px;
     font-size: 72px;
     padding-top: 15px;
