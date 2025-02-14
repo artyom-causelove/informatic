@@ -135,8 +135,7 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
   max-width: 40%;
   min-width: 480px;
 
-  padding: 0 80px 0 0;
-  margin: 0 0 30px 0;
+  transform: translateY(-75px);
 
   @media screen and (max-width: 1400px) {
     font-size: 250px;
@@ -214,6 +213,10 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
     width: 100%; 
     order: -1;
   }
+
+  @media screen and (max-width: 400px) {
+    font-size: 80px;
+  }
 }
 
 .button {
@@ -225,17 +228,27 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
   }
 
   @media screen and (max-width: 660px) {
-    margin-left: 30px;
+    &:nth-of-type(2) {
+      margin-left: 30px;
+    }
   }
 }
 
 .slider {
   max-width: 1240px;
-  min-width: 460px;
+  min-width: 390px;
   margin: 0 auto;
 
   @media screen and (max-width: 1250px) {
     max-width: 620px;
+  }
+
+  @media screen and (max-width: 630px) {
+    margin: 0 0 0 8px;
+  }
+
+  @media screen and (max-width: 405px) {
+    margin: 0;
   }
 }
 
@@ -297,6 +310,11 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
   width: 100px;
   flex-shrink: 0;
   margin-right: 30px;
+
+  @media screen and (max-width: 490px) {
+    font-size: 44px;
+    margin-right: 15px;
+  }
 }
 
 .item-title-wrapper {
@@ -311,7 +329,7 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
   max-width: 222px;
   
   @media screen and (max-width: 660px) {
-    max-width: 180px;
+    max-width: 185px;
   }
 }
 
@@ -322,6 +340,10 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
 
   @media screen and (max-width: 660px) {
     font-size: 20px;
+  }
+
+  @media screen and (max-width: 490px) {
+    font-size: 16px;
   }
 }
 
@@ -338,6 +360,11 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
   font-family: 'Rabbits Elf', sans-serif;
   font-size: 64px;
   color: var(--color-red);
+
+  @media screen and (max-width: 440px) {
+    font-size: 54px;
+    min-width: 82px;
+  }
 }
 
 .decoration {
