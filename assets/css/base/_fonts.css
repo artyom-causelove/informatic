@@ -4,6 +4,7 @@
     font-family: 'Cinematografica';
     src: url('/fonts/cinematografica/thin.otf') format('opentype');
     font-weight: 100;
+    ascent-override: 110%;
 }
 
 @font-face {
@@ -28,6 +29,7 @@
     font-family: 'Cinematografica';
     src: url('/fonts/cinematografica/heavy.otf') format('opentype');
     font-weight: 900;
+    ascent-override: 110%;
 }
 
 /* Rabbits Elf */

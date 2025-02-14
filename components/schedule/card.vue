@@ -74,19 +74,21 @@ const textMarginSecond = swapText ? '0 4px 0 auto' : '0 0 0 0';
 }
 
 .subtitle {
-  line-height: 20px;
   font-family: 'Cinematografica', sans-serif;
   font-weight: 900;
   text-align: center;
   font-size: 40px;
   width: 100%;
+  margin-top: -15px;
 
-  padding: 4px 0 22px 0;
+  // @supports (hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none) {
+  //   padding: 4px 0 22px 0;
+  // }
 }
 
 .difficult-outer {
   position: relative;
-  margin: 0 2px;
+  margin: 10px 2px 0 2px;
 }
 
 .difficult-hard {
@@ -211,11 +213,7 @@ const textMarginSecond = swapText ? '0 4px 0 auto' : '0 0 0 0';
     font-weight: 100;
     letter-spacing: 5px;
     font-size: 72px;
-    padding: 15px 0 0 0;
-
-    @supports (hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none) {
-      padding: 0 0 20px 0;
-    }
+    padding: 15px 0 40px 0;
   }
 }
 </style>
