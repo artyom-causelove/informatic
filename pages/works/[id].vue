@@ -46,44 +46,64 @@
     </template>
 
     <template #main>
-      <div class="homework-wrapper">
-
-        <div>
-          <ud-text font-family="Cinematografica" :font-weight="100" :size="300">
-            Домашка:
-          </ud-text>
+      <div class="main-container">
+        <div class="homework-wrapper">
+          <div style="width: 33%;">
+            <ud-text font-family="Cinematografica" :font-weight="100" :size="300">
+              Домашка:
+            </ud-text>
+          </div>
+          <div class="homework-title-wrapper">
+            <ud-text font-family="Cinematografica" :font-weight="700" :size="64">
+              20.03.26
+            </ud-text>
+            <ud-text font-family="Cinematografica" :font-weight="700" :size="64">
+              "11 задача"
+            </ud-text>
+          </div>
+          <div class="results-wrapper">
+            <ud-text font-family="UA Brand" :font-weight="400" :size="40">
+              <ud-text font-family="UA Brand" :font-weight="700" :size="40" component="span">9</ud-text>
+              заданий
+            </ud-text>
+            <ud-text font-family="UA Brand" :font-weight="700" :size="40">
+              <ud-text font-family="UA Brand" :font-weight="700" :size="40" color="text-light-green" component="span">7</ud-text>
+              верно
+            </ud-text>
+            <ud-button variant="paper" size="md" icon="/box-drop.png">
+              <div class="download-title-wrapper">
+                <ud-text font-family="UA Brand" :font-weight="700" :size="16" style="width: min-content;">
+                  Скачать
+                </ud-text>
+                <ud-text font-family="UA Brand" :size="16">
+                  одним файлом
+                </ud-text>
+              </div>
+            </ud-button>
+          </div>
         </div>
+        <div class="task-container" style="margin-top: 164px;">
+          <work-task :number="1" :file="{ name: 'txt', description: '1.txt' }"
+            content="В каждой строке электронной таблицы записаны шесть целых чисел. Определите, сколько в таблице строк, для которых выполнены следующие условия:
 
-        <div class="homework-title-wrapper">
-          <ud-text font-family="Cinematografica" :font-weight="700" :size="64">
-            20.03.26
-          </ud-text>
-          <ud-text font-family="Cinematografica" :font-weight="700" :size="64">
-            "11 задача"
-          </ud-text>
+              – в строке есть как повторяющиеся, так и неповторяющиеся числа;
+              – среднее арифметическое всех неповторяющихся чисел строки меньше, чем среднее арифметическое всех повторяющихся чисел этой строки.
+
+              При вычислении средних значений каждое число учитывается столько раз, сколько оно встречается в строке. В ответе запишите число – количество строк, для которых выполнены эти условия." />
+
+          <work-task :number="2" :file="{ name: 'txt', description: '2.txt' }" content="Откройте файл электронной таблицы, содержащей в каждой строке шесть натуральных чисел. Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:
+– в строке два числа, которые повторяются дважды, остальные числа различны;
+– квадрат большего из повторяющихся больше произведения неповторяющихся. В ответе запишите только число." />
+
+          <work-task :number="3" content="Напишите программу, которая перебирает целые числа, большие 700 000, в порядке возрастания и ищет среди них такие, у которых есть натуральный делитель, оканчивающийся на цифру 7 и не равный ни самому числу, ни числу 7.
+
+Выведите первые пять найденных чисел и для каждого - соответствующий наименьший делитель, оканчивающийся на цифру 7, не равный ни самому числу, ни числу 7.
+
+Формат вывода: для каждого из пяти найденных чисел в отдельной строке сначала выводится само число, затем - значение наименьшего делителя, оканчивающегося на цифру 7, не равного ни самому числу, ни числу 7.
+
+Строки выводятся в порядке возрастания найденных чисел. Количество строк в таблице для ответа избыточно." />
+
         </div>
-
-        <div class="results-wrapper">
-          <ud-text font-family="UA Brand" :font-weight="400" :size="40">
-            <ud-text font-family="UA Brand" :font-weight="700" :size="40" component="span">9</ud-text>
-            заданий
-          </ud-text>
-          <ud-text font-family="UA Brand" :font-weight="700" :size="40">
-            <ud-text font-family="UA Brand" :font-weight="700" :size="40" color="text-light-green" component="span">7</ud-text>
-            верно
-          </ud-text>
-          <ud-button variant="paper" size="md" icon="/box-drop.png">
-            <div class="download-title-wrapper">
-              <ud-text font-family="UA Brand" :font-weight="700" :size="16" style="width: min-content;">
-                Скачать
-              </ud-text>
-              <ud-text font-family="UA Brand" :size="16">
-                одним файлом
-              </ud-text>
-            </div>
-          </ud-button>
-        </div>
-
       </div>
     </template>
 
@@ -139,6 +159,13 @@
   text-align: left;
 }
 
+.main-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .homework-wrapper {
   color: black;
   display: flex;
@@ -147,6 +174,8 @@
   align-items: center;
 
   padding: 0 130px;
+  width: 100%;
+  max-width: 1800px;
 }
 
 .homework-title-wrapper {
@@ -154,6 +183,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 33%;
 
   & p {
     letter-spacing: 10px;
@@ -165,5 +195,16 @@
   flex-direction: column;
   align-items: end;
   gap: 18px;
+
+  width: 33%;
+}
+
+.task-container {
+  padding: 0 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 94px;
 }
 </style>

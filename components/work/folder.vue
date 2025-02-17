@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-type Name = 'pdf' | 'txt' | 'py';
+export type Name = 'pdf' | 'txt' | 'py';
 
 const props = defineProps<{
   name: Name;
   description?: string;
   size?: number;
+  descriptionStyle?: Record<string, string>;
 }>();
 
-const { name, size = 190, description } = props;
+const { name, size = 190, description, descriptionStyle } = props;
 </script>
 
 <template>
@@ -16,7 +17,7 @@ const { name, size = 190, description } = props;
     <div class="folder-name">
       {{ name }}
     </div>
-    <div v-if="description" class="folder-description" :style="{ width: size + 'px' }">
+    <div v-if="description" class="folder-description" :style="{ width: size + 'px', ...descriptionStyle }">
       {{ description }}
     </div>
   </div>
@@ -38,7 +39,7 @@ const { name, size = 190, description } = props;
   text-align: center;
   color: var(--color-text-dark-red);
   top: 0;
-  margin-top: 100px;
+  margin-top: 66px;
   margin-left: 7px;
   font-weight: 900;
 }
