@@ -30,6 +30,7 @@ const { name, size = 190, description, descriptionStyle } = props;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .folder-name {
@@ -42,6 +43,7 @@ const { name, size = 190, description, descriptionStyle } = props;
   margin-top: 66px;
   margin-left: 7px;
   font-weight: 900;
+  user-select: none;
 }
 
 .folder-description {
