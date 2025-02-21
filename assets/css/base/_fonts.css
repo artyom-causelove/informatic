@@ -11,6 +11,7 @@
     font-family: 'Cinematografica';
     src: url('/fonts/cinematografica/light.otf') format('opentype');
     font-weight: 300;
+    ascent-override: 110%;
 }
 
 @font-face {
