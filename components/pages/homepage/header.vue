@@ -15,9 +15,12 @@
     </div>
     <div class="wrapper-schedule">
       <template v-for="(work, index) in works" :key="index">
-        <schedule-card v-if="work" :data="work" textColor="#FFFFFF" image="/pepper.png" imageHard="/fire.png"
-          :disabled="work.tariff !== user.tariff" :options="{ color: '#EF3A5F' }"
-          disabled-text="SENIOR ONLY!" class="card card-work" :class="{ 'card-today': index === 3 }" />
+        <NuxtLink v-if="work" to="/works/1">
+          <schedule-card :data="work" textColor="#FFFFFF" image="/pepper.png" imageHard="/fire.png"
+            :disabled="work.tariff !== user.tariff" :options="{ color: '#EF3A5F' }"
+            disabled-text="SENIOR ONLY!" class="card card-work" :class="{ 'card-today': index === 3 }"
+          />
+        </NuxtLink>
         <span v-else class="card card-empty" :class="{ 'card-today': index === 3 }"></span>
       </template>
     </div>
@@ -72,7 +75,7 @@ const activeTariff = ref(1);
     width: 100%;
     margin-bottom: 100px;
 
-    @media screen and (max-width: 1455px) {
+    @media screen and (max-width: 1400px) {
       flex-direction: column;
       align-items: flex-end;
 
@@ -90,7 +93,7 @@ const activeTariff = ref(1);
       position: relative;
       margin: 0 auto;
 
-      @media screen and (max-width: 1455px) {
+      @media screen and (max-width: 1400px) {
         margin: 0 35px 0 0;
       }
 
@@ -125,7 +128,7 @@ const activeTariff = ref(1);
 
         transform: translate(-50%, -50%);
 
-        @media screen and (max-width: 1455px) {
+        @media screen and (max-width: 1400px) {
           display: block;
         }
 
@@ -150,7 +153,7 @@ const activeTariff = ref(1);
 
       transform: translateY(-50%);
 
-      @media screen and (max-width: 1455px) {
+      @media screen and (max-width: 1400px) {
         position: initial;
         flex-direction: row-reverse;
 
@@ -175,7 +178,7 @@ const activeTariff = ref(1);
 
     margin: 0 0 -15px 0;
 
-    @media screen and (max-width: 1455px) {
+    @media screen and (max-width: 1400px) {
       align-self: flex-start;
       margin: 0 auto 0 0;
       padding-left: 85px;
@@ -200,7 +203,7 @@ const activeTariff = ref(1);
 
       transform: translate(-50%, -50%);
 
-      @media screen and (max-width: 1455px) {
+      @media screen and (max-width: 1400px) {
         display: none;
       }
     }
@@ -214,7 +217,7 @@ const activeTariff = ref(1);
       color: var(--color-white);
       transform: translateY(-50px);
 
-      @media screen and (max-width: 1455px) {
+      @media screen and (max-width: 1400px) {
         font-size: 250px;
         transform: translateY(-170px);
       }
@@ -252,7 +255,7 @@ const activeTariff = ref(1);
       }
     }
 
-    @media screen and (max-width: 1455px) {
+    @media screen and (max-width: 1400px) {
       margin-top: -80px;
     }
 
@@ -355,7 +358,7 @@ const activeTariff = ref(1);
     width: 100%;
     margin: 60px 0 0 0;
 
-    @media screen and (max-width: 1455px) {
+    @media screen and (max-width: 1400px) {
       margin: 65px 0 0 0;
     }
 
