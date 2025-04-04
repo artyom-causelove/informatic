@@ -1,0 +1,25 @@
+
+/*
+** При обновлении цветов, добавить в /types/colors.ts !!!!!!!!!!!!!!!!!!!!!
+** Для работы text.vue компонента
+*/
+:root {
+    /* Основные цвета */
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+
+    /* Акцентные цвета */
+    --color-red: #EF3A5F;
+    --color-turquoise: #33ECDC;
+    --color-blue: #3F48CC;
+
+    /* Серые оттенки */
+    --color-gray: #5B5B5B;
+    --color-light-gray: #B9B9B9;
+    --color-very-light-gray: #F6F6F6;
+
+    /* Цвета для текста */
+    --color-text-dark-red: #68182B;
+    --color-text-blue: #33ECDC;
+    --color-text-light-green: #62B300;
+}

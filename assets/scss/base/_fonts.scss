@@ -1,0 +1,62 @@
+
+/* Cinematografica */
+@font-face {
+    font-family: 'Cinematografica';
+    src: url('/fonts/cinematografica/thin.otf') format('opentype');
+    font-weight: 100;
+    ascent-override: 110%;
+}
+
+@font-face {
+    font-family: 'Cinematografica';
+    src: url('/fonts/cinematografica/light.otf') format('opentype');
+    font-weight: 300;
+    ascent-override: 110%;
+}
+
+@font-face {
+    font-family: 'Cinematografica';
+    src: url('/fonts/cinematografica/regular.otf') format('opentype');
+    font-weight: 400;
+    ascent-override: 110%;
+}
+
+@font-face {
+    font-family: 'Cinematografica';
+    src: url('/fonts/cinematografica/bold.otf') format('opentype');
+    font-weight: 700;
+    ascent-override: 110%;
+}
+
+@font-face {
+    font-family: 'Cinematografica';
+    src: url('/fonts/cinematografica/heavy.otf') format('opentype');
+    font-weight: 900;
+    ascent-override: 110%;
+}
+
+/* Rabbits Elf */
+@font-face {
+    font-family: 'Rabbits Elf';
+    src: url('/fonts/rabbits/regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+/* UA Brand */
+@font-face {
+    font-family: 'UA Brand';
+    src: url('/fonts/ua-brand/regular.otf') format('opentype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'UA Brand';
+    src: url('/fonts/ua-brand/bold.otf') format('opentype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'UA Brand';
+    src: url('/fonts/ua-brand/black.otf') format('opentype');
+    font-weight: 900;
+}

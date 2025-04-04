@@ -4,9 +4,21 @@ export default defineNuxtConfig({
     typeCheck: true
   },
   compatibilityDate: '2024-11-01',
-  devtools: { enabled: true },
-  modules: [],
+  vite: {
+    server: {
+      hmr: {
+        overlay: false
+      }
+    }
+  },
+  devtools: { enabled: false },
+  modules: [
+    '@nuxt/eslint',
+    'v-gsap-nuxt',
+    '@hypernym/nuxt-anime',
+    'nuxt-lodash',
+  ],
   css: [
-    '@/assets/css/main.css'
-  ]
+    '@/assets/scss/main.scss'
+  ],
 })

@@ -1,0 +1,57 @@
+.flex {
+  display: flex;
+
+  &-column {
+    @extend .flex;
+    flex-direction: column;
+  }
+}
+
+.ua-brand {
+  font-family: 'UA Brand', sans-serif;
+}
+
+.cinematografica {
+  font-family: 'Cinematografica', sans-serif;
+}
+
+.rabbits-elf {
+  font-family: 'Rabbits Elf', sans-serif;
+}
+
+.light {
+  font-weight: 100;
+}
+
+.regular {
+  font-weight: 400;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.black {
+  font-weight: 900;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.white {
+  color: var(--color-white);
+}
+
+.px16 {
+  font-size: 16px;
+}
+
+.px20 {
+  font-size: 20px;
+}
+
+.px24 {
+  font-size: 24px;
+}
+

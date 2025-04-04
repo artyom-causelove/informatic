@@ -18,7 +18,7 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
     <div class="test-wrapper">
       <span class="test-text">Пробники:</span>
       <schedule-card v-for="(test, index) in tests" :key="index" class="test-card" :data="test" 
-        image="/skull.png" :options="{ color: '#33ECDC', textColor: '#000000' }"/>
+        image="/skull.png" :options="{ color: '#33ECDC', textColor: '#000000', swapText: true }"/>
     </div>
     <div class="buttons-wrapper">
       <slider-button class="button" @my-click="page > 1 ? page-- : page"/>
@@ -46,14 +46,59 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
       <slider-button class="button" @my-click="page > 1 ? page-- : page"/>
       <slider-button class="button" @my-click="page++"/>
     </div>
+    <img class="decoration" src="/decoration-1.png"/>
   </div>
 </template>
 
 <style scoped lang="scss">
+.main {
+  position: relative;
+  padding-bottom: 378px;
+
+  &::after, &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+  }
+
+  &::after {
+    left: 0;
+    width: 107px;
+    height: 652px;
+    background-image: url('/decoration-circles-half.png');
+  }
+
+  &::before {
+    right: 40px;
+    width: 119px;
+    height: 119px;
+    background-image: url('/heart-black.png');
+  }
+
+  @media screen and (max-width: 700px) {
+    &::after, &::before {
+      display: none;
+    }
+  }
+}
+
 .test-wrapper {
+  position: relative;
   display: flex;
 
   padding: 25px 250px 0 130px;
+
+  &::after {
+    content: '';
+    position: absolute;
+
+    top: calc(100% + 50px);
+    left: 90px;
+    width: 107px;
+    height: 141px;
+    background-image: url('/heart.png');
+  }
 
   @media screen and (max-width: 1500px) {
     padding: 25px 250px 0 50px;
@@ -62,15 +107,26 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
   @media screen and (max-width: 1050px) {
     flex-direction: column;
     padding: 25px 60px 0 60px;
+    
+    &::after {
+      top: 100px;
+      right: 100px;
+      left: unset;
+    }
   }
 
   @media screen and (max-width: 560px) {
     padding: 25px 30px 0 30px;
+    
+    &::after {
+      display: none;
+    }
   }
 }
 
 .test-text {
-  font-family: 'Cinematografica Thin';
+  font-family: 'Cinematografica', sans-serif;
+  font-weight: 100;
   line-height: 200px;
   font-size: 300px;
 
@@ -79,8 +135,7 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
   max-width: 40%;
   min-width: 480px;
 
-  padding: 0 80px 0 0;
-  margin: 0 0 30px 0;
+  transform: translateY(-75px);
 
   @media screen and (max-width: 1400px) {
     font-size: 250px;
@@ -158,6 +213,10 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
     width: 100%; 
     order: -1;
   }
+
+  @media screen and (max-width: 400px) {
+    font-size: 80px;
+  }
 }
 
 .button {
@@ -169,17 +228,27 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
   }
 
   @media screen and (max-width: 660px) {
-    margin-left: 30px;
+    &:nth-of-type(2) {
+      margin-left: 30px;
+    }
   }
 }
 
 .slider {
   max-width: 1240px;
-  min-width: 460px;
+  min-width: 390px;
   margin: 0 auto;
 
   @media screen and (max-width: 1250px) {
     max-width: 620px;
+  }
+
+  @media screen and (max-width: 630px) {
+    margin: 0 0 0 8px;
+  }
+
+  @media screen and (max-width: 405px) {
+    margin: 0;
   }
 }
 
@@ -241,6 +310,11 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
   width: 100px;
   flex-shrink: 0;
   margin-right: 30px;
+
+  @media screen and (max-width: 490px) {
+    font-size: 44px;
+    margin-right: 15px;
+  }
 }
 
 .item-title-wrapper {
@@ -252,19 +326,24 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
 }
 
 .item-title-text-wrapper {
-  max-width: 220px;
+  max-width: 222px;
   
   @media screen and (max-width: 660px) {
-    max-width: 180px;
+    max-width: 185px;
   }
 }
 
 .item-title {
   font-family: 'UA Brand', sans-serif;
+  font-weight: 700;
   font-size: 24px;
 
   @media screen and (max-width: 660px) {
     font-size: 20px;
+  }
+
+  @media screen and (max-width: 490px) {
+    font-size: 16px;
   }
 }
 
@@ -281,5 +360,28 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
   font-family: 'Rabbits Elf', sans-serif;
   font-size: 64px;
   color: var(--color-red);
+
+  @media screen and (max-width: 440px) {
+    font-size: 54px;
+    min-width: 82px;
+  }
+}
+
+.decoration {
+  position: absolute;
+
+  @media screen and (max-width: 1200px) {
+    transform: translate(-280px, 0);
+  }
+
+  @media screen and (max-width: 835px) {
+    left: 50%;
+    transform: translate(calc(-50% - 550px), 0);
+  }
+
+  @media screen and (max-width: 600px) {
+    left: 50%;
+    transform: translate(calc(-50% - 635px), 0);
+  }
 }
 </style>

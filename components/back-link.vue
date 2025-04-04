@@ -1,5 +1,18 @@
+<script setup lang="ts">
+const { prevent } = defineProps(['prevent']);
+
+const router = useRouter();
+</script>
+
 <template>
-  <NuxtLink class="link" @click="$router.back()">
-    <img class="image" src="/paper-back.png" width="195" height="110" />
-  </NuxtLink>
+  <nuxt-link class="link" @click="prevent || router.back()">
+    <img class="image" src="/paper-back.png">
+  </nuxt-link>
 </template>
+
+<style scoped lang="scss">
+.image {
+  width: 100%;
+  height: auto;
+}
+</style>

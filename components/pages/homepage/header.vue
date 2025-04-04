@@ -15,9 +15,12 @@
     </div>
     <div class="wrapper-schedule">
       <template v-for="(work, index) in works" :key="index">
-        <schedule-card v-if="work" :data="work" textColor="#FFFFFF" image="/pepper.png" imageHard="/fire.png"
-          :disabled="work.tariff !== user.tariff" :options="{ color: '#EF3A5F' }"
-          disabled-text="SENIOR ONLY!" class="card card-work" :class="{ 'card-today': index === 3 }" />
+        <NuxtLink v-if="work" to="/works/1">
+          <schedule-card :data="work" textColor="#FFFFFF" image="/pepper.png" imageHard="/fire.png"
+            :disabled="work.tariff !== user.tariff" :options="{ color: '#EF3A5F' }"
+            disabled-text="SENIOR ONLY!" class="card card-work" :class="{ 'card-today': index === 3 }"
+          />
+        </NuxtLink>
         <span v-else class="card card-empty" :class="{ 'card-today': index === 3 }"></span>
       </template>
     </div>
@@ -72,7 +75,7 @@ const activeTariff = ref(1);
     width: 100%;
     margin-bottom: 100px;
 
-    @media screen and (max-width: 1455px) {
+    @media screen and (max-width: 1400px) {
       flex-direction: column;
       align-items: flex-end;
 
@@ -90,7 +93,7 @@ const activeTariff = ref(1);
       position: relative;
       margin: 0 auto;
 
-      @media screen and (max-width: 1455px) {
+      @media screen and (max-width: 1400px) {
         margin: 0 35px 0 0;
       }
 
@@ -108,6 +111,11 @@ const activeTariff = ref(1);
           width: 428px;
           height: 128px;
         }
+
+        @media screen and (max-width: 430px) {
+          width: 390px;
+          height: 116px;
+        }
       }
 
       & > .circle-decoration {
@@ -120,7 +128,7 @@ const activeTariff = ref(1);
 
         transform: translate(-50%, -50%);
 
-        @media screen and (max-width: 1455px) {
+        @media screen and (max-width: 1400px) {
           display: block;
         }
 
@@ -145,7 +153,7 @@ const activeTariff = ref(1);
 
       transform: translateY(-50%);
 
-      @media screen and (max-width: 1455px) {
+      @media screen and (max-width: 1400px) {
         position: initial;
         flex-direction: row-reverse;
 
@@ -170,9 +178,9 @@ const activeTariff = ref(1);
 
     margin: 0 0 -15px 0;
 
-    @media screen and (max-width: 1455px) {
+    @media screen and (max-width: 1400px) {
       align-self: flex-start;
-      margin: -40px auto 100px 0;
+      margin: 0 auto 0 0;
       padding-left: 85px;
     }
 
@@ -182,8 +190,8 @@ const activeTariff = ref(1);
     }
 
     @media screen and (max-width: 460px) {
-      margin: 0 0 45px 0;
-      padding-left: 30px;
+      margin: 0 0 75px 0;
+      padding-left: 0;
     }
 
     .circle-decoration {
@@ -195,23 +203,28 @@ const activeTariff = ref(1);
 
       transform: translate(-50%, -50%);
 
-      @media screen and (max-width: 1455px) {
+      @media screen and (max-width: 1400px) {
         display: none;
       }
     }
 
     .schedule-text {
       position: relative;
-      font-family: 'Cinematografica Thin', sans-serif;
+      display: block;
+      font-family: 'Cinematografica', sans-serif;
+      font-weight: 100;
       font-size: 300px;
       color: var(--color-white);
+      transform: translateY(-50px);
 
-      @media screen and (max-width: 1455px) {
+      @media screen and (max-width: 1400px) {
         font-size: 250px;
+        transform: translateY(-170px);
       }
 
       @media screen and (max-width: 1050px) {
         font-size: 200px;
+        transform: translateY(-120px);
       }
     }
   }
@@ -242,10 +255,23 @@ const activeTariff = ref(1);
       }
     }
 
+    @media screen and (max-width: 1400px) {
+      margin-top: -80px;
+    }
+
     @media screen and (max-width: 1050px) {
+      margin-top: 0;
       flex-direction: column;
       height: unset;
       order: 4;
+    }
+
+    @media screen and (max-width: 770px) {
+      margin-top: -50px;
+    }
+
+    @media screen and (max-width: 465px) {
+      padding-left: 60px;
     }
 
     & > div:nth-of-type(2n) {
@@ -332,17 +358,17 @@ const activeTariff = ref(1);
     width: 100%;
     margin: 60px 0 0 0;
 
-    @media screen and (max-width: 1455px) {
+    @media screen and (max-width: 1400px) {
       margin: 65px 0 0 0;
     }
 
     @media screen and (max-width: 1050px) {
-      margin: 0 0 90px 0;
+      margin: -110px 0 90px 0;
       order: 3;
     }
 
     @media screen and (max-width: 770px) {
-      margin: 0 0 60px 0;
+      margin: -210px 0 0 0;
       flex-direction: column;
     }
 
@@ -351,6 +377,7 @@ const activeTariff = ref(1);
       z-index: 1;
       position: relative;
       font-family: 'UA Brand', sans-serif;
+      font-weight: 400;
       font-size: 36px;
       color: var(--color-light-gray);
 
