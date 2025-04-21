@@ -1,22 +1,41 @@
-<script setup lang="js">
+<script setup lang="ts">
 const { lesson } = defineProps(['lesson']);
+
+const videoParams = computed(() => {
+  if (!lesson?.uri || lesson.platform !== 'VK') return null
+  
+  const url = new URL(lesson.uri)
+  const pathParts = url.pathname.split('_')
+  if (pathParts.length !== 2) return null
+  
+  const oid = pathParts[0].replace('/video', '')
+  const id = pathParts[1]
+  
+  return { oid, id }
+})
+
 </script>
 
 <template>
-<div class="title">
-  <span class="title-text">{{ lesson.title }}</span>
-  <div class="title-life">
-  <img
-    v-for="(it, index) in 3" :key="index"
-    class="title-life-item" src="/micro-heart.png"
-  />
+  <div class="title">
+    <span class="title-text">{{ lesson?.title }}</span>
+    <div class="title-life">
+      <img v-for="(it, index) in 3" :key="index" class="title-life-item" src="/micro-heart.png" />
+    </div>
   </div>
-</div>
-<div class="stream">
-  <span class="stream-video">STREAM</span>
-  <span class="stream-chat">CHAT</span>
-</div>
-<div class="files">
+  <div class="stream">
+    <span class="stream-video">
+      <template v-if="lesson?.platform === 'VK' && videoParams">
+        <div class="video-wrapper">
+          <iframe :src="`https://vkvideo.ru/video_ext.php?oid=${videoParams.oid}&id=${videoParams.id}&hd=2&autoplay=1`"
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
+            frameborder="0" allowfullscreen></iframe>
+        </div>
+      </template>
+    </span>
+    <span class="stream-chat">CHAT</span>
+  </div>
+  <!-- <div class="files">
   <span class="files-text">Файлы:</span>
   <file
     v-for="it in lesson.files" :key="it.id"
@@ -31,7 +50,7 @@ const { lesson } = defineProps(['lesson']);
       </div>
     </my-button>
   </div>
-</div>
+</div> -->
 </template>
 
 <style scoped lang="scss">
@@ -72,13 +91,22 @@ const { lesson } = defineProps(['lesson']);
   &-video {
     flex: 1;
     margin-right: 15px;
-
-    font-family: 'Cinematografica', sans-serif;
-    font-size: 200px;
-    text-align: center;
-    line-height: 650px;
     background-color: #000000;
-    color: #FFFFFF;
+    
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
   }
 
   &-chat {
@@ -132,7 +160,8 @@ const { lesson } = defineProps(['lesson']);
     flex-direction: column;
     height: 1300px;
 
-    &-video, &-chat {
+    &-video,
+    &-chat {
       width: 100%;
     }
   }
@@ -141,7 +170,8 @@ const { lesson } = defineProps(['lesson']);
     flex-wrap: wrap;
     padding: 50px 130px 70px 130px;
 
-    &-text, &-button {
+    &-text,
+    &-button {
       width: 100%;
     }
 
@@ -152,7 +182,7 @@ const { lesson } = defineProps(['lesson']);
     &-item {
       margin: 0 35px 60px 0;
     }
-  } 
+  }
 }
 
 /** 900-files */
@@ -177,11 +207,14 @@ const { lesson } = defineProps(['lesson']);
     flex-direction: column;
     padding: 40px 80px 80px 80px;
 
-    &-text, &-item, &-button {
+    &-text,
+    &-item,
+    &-button {
       align-self: center;
     }
 
-    &-text, &-button {
+    &-text,
+    &-button {
       width: auto;
     }
 

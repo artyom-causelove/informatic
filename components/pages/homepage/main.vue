@@ -15,11 +15,11 @@ const pageItem = ref(breakpoints.smallerOrEqual('laptop'));
 
 <template>
   <div class="main">
-    <div class="test-wrapper">
+    <!-- <div class="test-wrapper">
       <span class="test-text">Пробники:</span>
       <schedule-card v-for="(test, index) in tests" :key="index" class="test-card" :data="test" 
         image="/skull.png" :options="{ color: '#33ECDC', textColor: '#000000', swapText: true }"/>
-    </div>
+    </div> -->
     <div class="buttons-wrapper">
       <slider-button class="button" @my-click="page > 1 ? page-- : page"/>
       <span class="button-text">Все уроки:</span>

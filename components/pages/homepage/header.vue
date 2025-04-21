@@ -7,50 +7,156 @@
         <img class="circle-decoration" src="/decoration-circles.png" />
         <img class="company-title" src="/company-title.png" />
       </div>
-      <account class="account" :name="user.name" :surname="user.surname" />
+      <account v-if="user && user.username" class="account" :name="user.username" :avatar="user.avatarUrl" />
     </div>
     <div class="wrapper-text">
       <img class="circle-decoration" src="/decoration-circles.png" />
       <span class="schedule-text">Расписание:</span>
     </div>
     <div class="wrapper-schedule">
-      <template v-for="(work, index) in works" :key="index">
-        <NuxtLink v-if="work" to="/works/1">
-          <schedule-card :data="work" textColor="#FFFFFF" image="/pepper.png" imageHard="/fire.png"
-            :disabled="work.tariff !== user.tariff" :options="{ color: '#EF3A5F' }"
-            disabled-text="SENIOR ONLY!" class="card card-work" :class="{ 'card-today': index === 3 }"
-          />
-        </NuxtLink>
-        <span v-else class="card card-empty" :class="{ 'card-today': index === 3 }"></span>
+      <template v-for="(work, index) in schedule" :key="work?.id || index">
+        <schedule-card 
+          v-if="work" 
+          :data="{
+            title: work.title,
+            subtitle: '',
+            text: [],
+            footer: formatDateTime(work.start),
+            imageCount: 3
+          }" 
+          textColor="#FFFFFF" 
+          image="/pepper.png" 
+          imageHard="/fire.png"
+          :options="{ color: '#EF3A5F' }"
+          disabled-text="СКОРО!"
+          class="card card-work" 
+          :class="{ 'card-today': isToday(work.start) }" 
+          @click="openLesson(work)"
+        />
+        <span v-else class="card card-empty" :class="{ 'card-today': isToday(getDayDate(index)) }"></span>
       </template>
     </div>
-    <div class="wrapper-tariff">
+    <!-- <div class="wrapper-tariff">
       <span class="tariff tariff-pay" :class="{ active: activeTariff === 1 }" @click="activeTariff = 1">Платный курс</span>
       <span class="tariff tariff-slash">/</span>
       <span class="tariff tariff-free" :class="{ active: activeTariff === 2 }" @click="activeTariff = 2">Бесплатный курс</span>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
-const { works, user } = defineProps<{
-  works: Array<{
-    subfooter?: string[]
-    text: string[]
-    title: string
-    subtitle: string
-    imageCount?: number
-    footer?: string
-    tariff: number
-  } | null>
-  user: {
-    name: string
-    surname: string
-    tariff: number
-  }
+import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+interface User {
+  id?: string
+  username: string
+  avatarUrl: string
+  role?: string
+}
+
+interface Lesson {
+  id: string
+  title: string
+  description: string
+  start: string
+  platform: string | null
+  uri: string | null
+  sectionId: string
+  courseTitle: string
+  courseId: string
+}
+
+const props = defineProps<{
+  user: User | null
 }>();
 
-const activeTariff = ref(1);
+
+const user = computed(() => props.user || null)
+const schedule = ref<(Lesson | null)[]>([null, null, null, null, null, null, null]);
+const router = useRouter()
+
+// Получение дат начала и конца недели
+const getWeekDates = () => {
+  const now = new Date()
+  const monday = new Date(now)
+  monday.setDate(now.getDate() - now.getDay() + 1)
+  monday.setHours(0, 0, 0, 0)
+  
+  const sunday = new Date(now)
+  sunday.setDate(now.getDate() - now.getDay() + 7)
+  sunday.setHours(23, 59, 59, 999)
+  
+  return {
+    start: monday.toISOString().split('T')[0],
+    end: sunday.toISOString().split('T')[0]
+  }
+}
+
+// Получение даты для конкретного дня недели
+const getDayDate = (dayIndex: number) => {
+  const now = new Date()
+  const day = new Date(now)
+  day.setDate(now.getDate() - now.getDay() + dayIndex + 1)
+  return day.toISOString()
+}
+
+// Проверка, является ли дата сегодняшней
+const isToday = (dateStr: string) => {
+  const date = new Date(dateStr)
+  const today = new Date()
+  return date.toDateString() === today.toDateString()
+}
+
+// Форматирование даты и времени
+const formatDateTime = (dateStr: string) => {
+  const date = new Date(dateStr)
+  const day = date.getDate().toString().padStart(2, '0')
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const time = date.toLocaleTimeString('ru-RU', { 
+    hour: '2-digit', 
+    minute: '2-digit',
+    hour12: false 
+  })
+  const weekDay = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'][date.getDay()]
+  
+  return `${day}.${month}...${time}\n${weekDay}`
+}
+
+// Открытие урока
+const openLesson = (lesson: Lesson) => {
+  router.push(`/works/${lesson.id}`)
+}
+
+// Загрузка расписания
+const fetchSchedule = async () => {
+  try {
+    const { start, end } = getWeekDates()
+    const response = await fetch(`http://localhost:3005/courses/0b23b8f8-fe6a-4383-8456-38174021eb5b/schedule?start=${start}&end=${end}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      }
+    })
+    
+    if (response.ok) {
+      const weekSchedule = await response.json() as (Lesson[] | null)[]
+      
+      // Преобразуем данные в нужный формат
+      schedule.value = weekSchedule.map(day => {
+        if (!day || day.length === 0) return null
+        
+        // Берем первый урок дня
+        return day[0]
+      })
+    }
+  } catch (error) {
+    console.error('Failed to fetch schedule:', error)
+  }
+}
+
+onMounted(() => {
+  fetchSchedule()
+})
 </script>
 
 <style scoped lang="scss">
