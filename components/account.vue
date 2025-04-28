@@ -1,13 +1,18 @@
 <template>
   <div class="account">
-    <img class="photo" src="/avatar.jpg" />
+    <img class="photo" :src="avatar" :alt="name" />
     <div class="separator"></div>
-    <span class="fullname">{{ name }} {{ surname }}</span>
+    <span class="fullname">{{ name }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-const { name, surname } = defineProps(['name', 'surname']);
+interface Props {
+  name: string
+  avatar?: string
+}
+
+defineProps<Props>()
 </script>
 
 <style scoped lang="scss">
